@@ -2,6 +2,7 @@
 using App1.API.Models.Domain;
 using App1.API.Models.DTOs;
 using App1.API.Repositories.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -21,6 +22,7 @@ namespace App1.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> createCategory([FromBody] CreateCategoryRequestDto request)
         {
 
@@ -77,6 +79,7 @@ namespace App1.API.Controllers
         }
         [HttpPut]
         [Route("{id:Guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> UpdateCategory(Guid id, UpdateCategoryRequestDto updateCategoryRequestDto)
         {
             var category = new Category
@@ -103,6 +106,7 @@ namespace App1.API.Controllers
         }
         [HttpDelete]
         [Route("{id:Guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> DeleteCategory(Guid id)
         {
             var category= await categoryRepository.DeleteAsync(id);

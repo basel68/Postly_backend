@@ -3,12 +3,14 @@ using App1.API.Models.DTOs;
 using App1.API.Repositories.Implementation;
 using App1.API.Repositories.Interface;
 using Azure.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App1.API.Controllers
 {
     [Route("admin/[controller]")]
     [ApiController]
+    
     public class BlogPostsController : Controller
     {
         private readonly IBlogPostRepository blogPostRepository;
@@ -51,6 +53,7 @@ namespace App1.API.Controllers
             
         }
         [HttpPost]
+        [Authorize (Roles="Writer")]
         public async Task<IActionResult> createBlogPost(CreateBlogPostRequestDto request)
         {
             BlogPost blogPost = new BlogPost
@@ -98,6 +101,7 @@ namespace App1.API.Controllers
         }
         [HttpDelete]
         [Route("{id:Guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> deleteBlogPost(Guid id)
         {
             var blogPost = await blogPostRepository.GetById(id);
@@ -197,6 +201,7 @@ namespace App1.API.Controllers
         }
         [HttpPut]
         [Route("{id:Guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> UpdateBlogPost(Guid id,UpdateBlogPostRequestDto request)
         {
             var blogPost = new BlogPost
