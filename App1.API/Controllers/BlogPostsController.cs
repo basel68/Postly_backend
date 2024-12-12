@@ -19,6 +19,37 @@ namespace App1.API.Controllers
             this.blogPostRepository = blogPostRepository;
             this.categoryRepository = categoryRepository;
         }
+        [HttpGet]
+        [Route("{urlHandle}")]
+        public async Task<IActionResult> getBlogPostByUrl(string urlHandle)
+        {
+            var blogPost = await this.blogPostRepository.GetByUrl(urlHandle);
+            if (blogPost == null)
+            {
+                return NotFound();
+            }
+            
+                BlogPostDto response = new BlogPostDto
+                {
+                    Id = blogPost.Id,
+                    Title = blogPost.Title,
+                    UrlHandle = blogPost.UrlHandle,
+                    Author = blogPost.Author,
+                    FeaturedImageUrl = blogPost.FeaturedImageUrl,
+                    Content = blogPost.Content,
+                    IsVisible = blogPost.IsVisible,
+                    PublishedDate = blogPost.PublishedDate,
+                    ShortDescription = blogPost.ShortDescription,
+                    Categories = blogPost.Categories.Select(x => new CategoryDto
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        UrlHandle = x.UrlHandle,
+                    }).ToList()
+                };
+                return Ok(response);
+            
+        }
         [HttpPost]
         public async Task<IActionResult> createBlogPost(CreateBlogPostRequestDto request)
         {
