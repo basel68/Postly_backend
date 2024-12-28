@@ -45,9 +45,10 @@ namespace App1.API.Controllers
 
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllCategories()
+        public async Task<IActionResult> GetAllCategories([FromQuery] string? query = null, [FromQuery] string? sortBy=null,
+            [FromQuery] string? sortDirection = null, [FromQuery]int? pageNumber = 1, [FromQuery] int? pageSize = 100)
         {
-            var categories = await categoryRepository.GetAllAsync();
+            var categories = await categoryRepository.GetAllAsync(query,sortBy,sortDirection,pageNumber, pageSize);
             var response = new List<CategoryDto>();
             foreach (var category in categories)
             {
@@ -116,6 +117,13 @@ namespace App1.API.Controllers
             }
             return Ok(category);
         }
-       
+        [HttpGet]
+        [Route("count")]
+        public async Task<IActionResult> GetCount()
+        {
+            var count = await categoryRepository.getCountAsync();
+            return Ok(count);
+        }
+
     }
 }
