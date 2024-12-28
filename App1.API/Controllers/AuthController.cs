@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace App1.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("admin/[controller]")]
     [ApiController]
     public class AuthController : Controller
     {
