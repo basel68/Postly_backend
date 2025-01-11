@@ -25,7 +25,7 @@ namespace App1.API.Controllers
         [Route("{urlHandle}")]
         public async Task<IActionResult> getBlogPostByUrl(string urlHandle)
         {
-            var blogPost = await this.blogPostRepository.GetByUrl(urlHandle);
+            var blogPost = await this.blogPostRepository.GetByUrlAsync(urlHandle);
             if (blogPost == null)
             {
                 return NotFound();
@@ -104,7 +104,7 @@ namespace App1.API.Controllers
         [Authorize(Roles = "Writer")]
         public async Task<IActionResult> deleteBlogPost(Guid id)
         {
-            var blogPost = await blogPostRepository.GetById(id);
+            var blogPost = await blogPostRepository.GetByIdAsync(id);
             if (blogPost == null)
             {
                 return NotFound();
@@ -116,7 +116,7 @@ namespace App1.API.Controllers
                 UrlHandle = x.UrlHandle,
             }).ToList();
             
-            blogPost =await blogPostRepository.DeleteById(id);
+            blogPost =await blogPostRepository.DeleteByIdAsync(id);
             if (blogPost != null)
             {
                 BlogPostDto response = new BlogPostDto
@@ -173,7 +173,7 @@ namespace App1.API.Controllers
         [Route("{id:Guid}")]
         public async Task<IActionResult> GetBlogPostById(Guid id)
         {
-            var blogPost = await this.blogPostRepository.GetById(id);
+            var blogPost = await this.blogPostRepository.GetByIdAsync(id);
             if(blogPost is null)
             {
                 return NotFound();

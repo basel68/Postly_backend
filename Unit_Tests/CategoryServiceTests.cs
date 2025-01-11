@@ -34,7 +34,7 @@ namespace UnitTests
             Assert.NotNull(result);
             Assert.Equal(category.Id, result.Id);
             Assert.Equal(category.Name, result.Name);
-            Assert.Single(dbContext.Categories); // Verify it was added
+            Assert.Single(dbContext.Categories); // Verify it was added once
         }
 
         [Fact]

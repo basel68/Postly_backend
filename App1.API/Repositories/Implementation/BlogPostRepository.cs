@@ -22,7 +22,7 @@ namespace App1.API.Repositories.Implementation
             return blogPost;
         }
 
-        public async Task<BlogPost?> DeleteById(Guid id)
+        public async Task<BlogPost?> DeleteByIdAsync(Guid id)
         {
             var existingBlogPost=await dbContext.BlogPosts.FirstOrDefaultAsync(b => b.Id == id);
             if (existingBlogPost != null) {
@@ -38,12 +38,12 @@ namespace App1.API.Repositories.Implementation
            return await this.dbContext.BlogPosts.Include(x =>x.Categories).ToListAsync();
         }
 
-        public async Task<BlogPost?> GetById(Guid id)
+        public async Task<BlogPost?> GetByIdAsync(Guid id)
         {
             return await dbContext.BlogPosts.Include(x=>x.Categories).FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<BlogPost?> GetByUrl(string url)
+        public async Task<BlogPost?> GetByUrlAsync(string url)
         {
             return await dbContext.BlogPosts.Include(x => x.Categories).FirstOrDefaultAsync(x => x.UrlHandle == url);
         }

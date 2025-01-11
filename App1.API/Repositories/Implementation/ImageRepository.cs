@@ -32,9 +32,9 @@ namespace App1.API.Repositories.Implementation
             await file.CopyToAsync(stream);
 
             // 2-Update the database
-            // https://codepulse.com/images/somefilename.jpg
-            var httpRequest = httpContextAccessor.HttpContext.Request;
-            var urlPath = Path.Combine($"{httpRequest.Scheme}://{httpRequest.Host}{httpRequest.PathBase}/Images/{blogImage.FileName}{blogImage.FileExtension}");
+            // https://localhost/images/somefilename.jpg
+            var httpRequest = httpContextAccessor?.HttpContext?.Request;
+            var urlPath = Path.Combine($"{httpRequest?.Scheme}://{httpRequest?.Host}{httpRequest?.PathBase}/Images/{blogImage.FileName}{blogImage.FileExtension}");
             
             blogImage.Url = urlPath;
 

@@ -7,11 +7,11 @@ namespace App1.API.Repositories.Interface
         Task<BlogPost> CreateAsync(BlogPost blogPost);
         Task<IEnumerable<BlogPost>> GetAllAsync();
 
-        Task<BlogPost?> GetById(Guid id);
-        Task<BlogPost?> GetByUrl(string url);
+        Task<BlogPost?> GetByIdAsync(Guid id);
+        Task<BlogPost?> GetByUrlAsync(string url);
 
         Task<BlogPost?> UpdateAsync(BlogPost blogPost);
-        Task<BlogPost?> DeleteById(Guid id);
+        Task<BlogPost?> DeleteByIdAsync(Guid id);
 
 
     }
